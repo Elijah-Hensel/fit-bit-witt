@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import TextField from "@material-ui/core/TextField";
 import Paper from "@material-ui/core/Paper";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
@@ -8,6 +9,13 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import {
+  DeleteForeverOutlined as DeleteIcon,
+  SaveAltOutlined as SaveIcon,
+  EditOutlined as EditIcon,
+} from "@material-ui/icons";
+import ActivityRow from "./ActivitiesRow";
+import getActivities from "../functions/getActivities";
 
 const useStyles = makeStyles({
   root: {
@@ -22,27 +30,20 @@ const Activities = () => {
   const classes = useStyles();
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-
   const [allActivities, setAllActivities] = useState([]);
+  const [editMode, setEditMode] = useState(false);
 
-  const fetchPublicActivities = async () => {
+  const activities = async () => {
     try {
-      const response = await fetch(
-        "http://fitnesstrac-kr.herokuapp.com/api/activities",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      setAllActivities(data);
+      const activitiesGrabbed = await getActivities();
+      setAllActivities(activitiesGrabbed);
     } catch (err) {
       throw err;
     }
   };
+
   useEffect(() => {
-    fetchPublicActivities();
+    activities();
   }, [allActivities]);
 
   const columns = [
@@ -51,12 +52,17 @@ const Activities = () => {
   ];
 
   const handleChangePage = (event, newPage) => {
+    event.preventDefault();
     setPage(newPage);
   };
 
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(+event.target.value);
     setPage(0);
+  };
+
+  const onEdit = () => {
+    setEditMode(true);
   };
 
   return (
@@ -76,47 +82,29 @@ const Activities = () => {
               <Table stickyHeader aria-label="sticky table">
                 <TableHead>
                   <TableRow>
-                    {columns.map((column) => (
-                      <TableCell
-                        key={column.id}
-                        align={column.align}
-                        style={{
-                          minWidth: column.minWidth,
-                          fontWeight: "bold",
-                        }}
-                      >
-                        {column.label}
-                      </TableCell>
-                    ))}
+                    {columns.map((column) => {
+                      return (
+                        <>
+                          <TableCell
+                            key={column.id}
+                            align={column.align}
+                            style={{
+                              minWidth: column.minWidth,
+                              fontWeight: "bold",
+                            }}
+                          >
+                            {column.label}
+                          </TableCell>
+                        </>
+                      );
+                    })}
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {allActivities
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={allActivities.id}
-                        >
-                          {columns.map((column) => {
-                            const value = row[column.id];
-                            return (
-                              <TableCell
-                                style={{ fontWeight: "bold" }}
-                                key={column.id}
-                                align={column.align}
-                              >
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
-                          })}
-                        </TableRow>
-                      );
+                      return <ActivityRow key={row.id} activity={row} />;
                     })}
                 </TableBody>
               </Table>

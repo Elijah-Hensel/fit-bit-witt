@@ -140,6 +140,7 @@ span:before {
   left: 0;
   top: 0;
   content: attr(filter-content);
+  color: black;
 
   filter: url(#motion-blur-filter);
 }
