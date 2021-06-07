@@ -65,7 +65,6 @@ const MyRoutinesRow = ({
   };
 
   const onDelete = async (id) => {
-    onRemoveRoutine();
     try {
         const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${id}`,
         {
@@ -124,6 +123,7 @@ const MyRoutinesRow = ({
           <EditIcon style={{ cursor: "pointer" }} onClick={onEdit} />
         )}
         {<DeleteIcon onClick={(e) => {
+          onRemoveRoutine(0)
             onDelete(id);
         }} />}
       </TableCell>

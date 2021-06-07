@@ -8,7 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import RoutinesRow from "./RoutinesRow"
+import RoutinesRow from "./RoutinesRow";
 
 const useStyles = makeStyles({
   root: {
@@ -94,13 +94,16 @@ const Routines = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {allRoutines
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      return (
-                        <RoutinesRow key={row.name} routine={row}/>
-                      );
-                    })}
+                  {allRoutines.length > 1
+                    ? allRoutines
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((row) => {
+                          return <RoutinesRow key={row.name} routine={row} />;
+                        })
+                    : "CREATE A NEW ROUTINE!"}
                 </TableBody>
               </Table>
             </TableContainer>

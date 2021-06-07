@@ -64,7 +64,7 @@ const Navigation = () => {
         onClose={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <Link style={{ color: "white", marginLeft: 15 }} to="/">
+          <Link style={{ color: "white", marginLeft: 15 }} to="/home">
             Home
           </Link>
         </MenuItem>

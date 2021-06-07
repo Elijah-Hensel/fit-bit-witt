@@ -6,10 +6,9 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import FormGroup from "@material-ui/core/FormGroup";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
-import ActivitiesList from "./ActivitiesList"
+import ActivitiesList from "./ActivitiesList";
 
 const CreateRoutineModal = () => {
   const [newRoutine, setNewRoutine] = useState([]);
@@ -42,7 +41,7 @@ const CreateRoutineModal = () => {
   };
 
   const createRoutine = async () => {
-    const myToken = localStorage.getItem("token")
+    const myToken = localStorage.getItem("token");
     try {
       const response = await fetch(
         "http://fitnesstrac-kr.herokuapp.com/api/routines",
@@ -50,7 +49,7 @@ const CreateRoutineModal = () => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${myToken}`,
+            Authorization: `Bearer ${myToken}`,
           },
           body: JSON.stringify({
             name: routineName,
@@ -135,140 +134,6 @@ const CreateRoutineModal = () => {
       </Dialog>
     </div>
   );
-
-  // const [open, setOpen] = useState(false);
-  // const [newRoutine, setNewRoutine] = useState([]);
-  // const [myToken, setMyToken] = useState("");
-  // const [routineName, setRoutineName] = useState("Routine Name");
-  // const [routineGoal, setRoutineGoal] = useState("Routine Goal");
-  // const [routinePublic, setRoutinePublic] = useState({ isPublic: true });
-
-  // const handleChange = (event) => {
-  //   setRoutinePublic({
-  //     ...routinePublic,
-  //     [event.target.name]: event.target.checked,
-  //   });
-  // };
-  // if (localStorage.getItem("token")) {
-  //   setMyToken(localStorage.getItem("token"));
-  // }
-
-  // const handleClickOpen = () => {
-  //   setOpen(true);
-  // };
-
-  // const handleClose = () => {
-  //   setOpen(false);
-  // };
-
-  // const createRoutine = async () => {
-  //   try {
-  //     const response = await fetch(
-  //       "http://fitnesstrac-kr.herokuapp.com/api/routines",
-  //       {
-  //         method: "POST",
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: `Bearer ${myToken}`,
-  //         },
-  //         body: JSON.stringify({
-  //           name: { routineName },
-  //           goal: { routineGoal },
-  //           isPublic: { routinePublic },
-  //         }),
-  //       }
-  //     );
-  //     const data = await response.json();
-  //     setNewRoutine(data);
-  //     return data;
-  //   } catch (err) {
-  //     throw err;
-  //   }
-  // };
-
-  // const onFormSubmit = async (event) => {
-  //   event.preventDefault();
-  //   await createRoutine();
-  //   handleClose();
-  //   window.location = "./my-routines";
-  // };
-
-  // return (
-  //   <div>
-  //     <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-  //       Open form dialog
-  //     </Button>
-  //     <form
-  //       style={{
-  //         display: "flex",
-  //         flexDirection: "column",
-  //         alignItems: "center",
-  //       }}
-  //       className="register-form"
-  //       noValidate
-  //       autoComplete="on"
-  //       onSubmit={onFormSubmit}
-  //     >
-  //       <Dialog
-  //         open={open}
-  //         onClose={handleClose}
-  //         aria-labelledby="form-dialog-title"
-  //       >
-  //         <DialogTitle id="form-dialog-title">Subscribe</DialogTitle>
-  //         <DialogContent>
-  //           <DialogContentText>
-  //             <p>
-  //               Create a new routine full of work out activities curated{" "}
-  //               <b>by you, for you</b>
-  //             </p>
-  //           </DialogContentText>
-  //           <TextField
-  //             autoFocus
-  //             margin="dense"
-  //             id="name"
-  //             label="Email Address"
-  //             type="email"
-  //             value={routineName}
-  //             onChange={(event) => {
-  //               setRoutineName(event.target.value);
-  //             }}
-  //             fullWidth
-  //           />
-  //           <TextField
-  //             autoFocus
-  //             margin="dense"
-  //             id="name"
-  //             label="Email Address"
-  //             type="email"
-  //             value={routineGoal}
-  //             onChange={(event) => {
-  //               setRoutineGoal(event.target.value);
-  //             }}
-  //             fullWidth
-  //           />
-  //           <FormControlLabel
-  //             control={
-  //               <Checkbox
-  //                 checked={routinePublic.isPublic}
-  //                 onChange={handleChange}
-  //                 name="checkedA"
-  //               />
-  //             }
-  //             label="Secondary"
-  //           />
-  //         </DialogContent>
-  //         <DialogActions>
-  //           <Button onClick={handleClose} color="primary">
-  //             CANCEL
-  //           </Button>
-  //           <Button onClick={createRoutine} color="primary">
-  //             CREATE ROUTINE
-  //           </Button>
-  //         </DialogActions>
-  //       </Dialog>
-  //     </form>
-  //   </div>
-  // );
 };
 
 export default CreateRoutineModal;

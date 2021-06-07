@@ -121,9 +121,9 @@ const MyRoutines = () => {
     setRowsPerPage(+event.target.value);
     setPage(0);
   };
+  const copy = [...userRoutines];
 
   const onRemoveRoutine = (idx) => {
-    const copy = [...userRoutines];
     copy.splice(idx, 1);
     setUserRoutines(copy);
   };
@@ -168,14 +168,15 @@ const MyRoutines = () => {
                       </TableRow>
                     </TableHead>
                     <TableBody>
-                      {userRoutines
+                      {userRoutines ? 
+                      userRoutines
                         .slice(
                           page * rowsPerPage,
                           page * rowsPerPage + rowsPerPage
                         )
                         .map((row) => {
-                          return <MyRoutinesRow key={row.name} routine={row} />;
-                        })}
+                          return <MyRoutinesRow key={row.name} onRemoveRoutine={onRemoveRoutine} routine={row} />;
+                        }) : "CREATE A NEW ROUTINE"}
                     </TableBody>
                   </Table>
                 </TableContainer>
