@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { makeStyles } from "@material-ui/core/styles";
 import TextField from "@material-ui/core/TextField";
@@ -10,16 +10,8 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
-import {
-  DeleteForeverOutlined as DeleteIcon,
-  SaveAltOutlined as SaveIcon,
-  EditOutlined as EditIcon,
-  CodeSharp,
-} from "@material-ui/icons";
-// import getMyRoutines from "../functions/getMyRoutines"
-import MyRoutinesRow from "./MyRoutinesRow"
-
-const TOKEN = localStorage.getItem("token")
+import MyRoutinesRow from "./MyRoutinesRow";
+import CreateRoutineModal from "./CreateRoutineModal"
 
 const useStyles = makeStyles({
   root: {
@@ -30,44 +22,42 @@ const useStyles = makeStyles({
   },
 });
 
-
-const myUsernameFetch = (myToken) => {
-	try {
-		return axios
-			.get(`http://fitnesstrac-kr.herokuapp.com/api/users/me`, {
-				headers: {
-					"Content-Type": "application/json",
-					Authorization: `Bearer ${myToken}`,
-				},
-			})
-			.then(({ data: { username } }) => {
-				return username;
-			});
-	} catch (err) {
-		console.error(err);
-	}
+const myUsernameFetch = async (myToken) => {
+  try {
+    return axios
+      .get(`http://fitnesstrac-kr.herokuapp.com/api/users/me`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${myToken}`,
+        },
+      })
+      .then(({ data: { username } }) => {
+        return username;
+      });
+  } catch (err) {
+    console.error(err);
+  }
 };
 
-const myRoutinesFetch = (username, myToken) => {
-	try {
-		return axios
-			.get(
-				`http://fitnesstrac-kr.herokuapp.com/api/users/${username}/routines`,
-				{
-					headers: {
-						"Content-Type": "application/json",
-						Authorization: `Bearer ${myToken}`,
-					},
-				}
-			)
-			.then(({ data }) => {
-				return data;
-			});
-	} catch (err) {
-		console.error(err);
-	}
+const myRoutinesFetch = async (username, myToken) => {
+  try {
+    return axios
+      .get(
+        `http://fitnesstrac-kr.herokuapp.com/api/users/${username}/routines`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${myToken}`,
+          },
+        }
+      )
+      .then(({ data }) => {
+        return data;
+      });
+  } catch (err) {
+    console.error(err);
+  }
 };
-
 
 const MyRoutines = () => {
   const classes = useStyles();
@@ -75,16 +65,42 @@ const MyRoutines = () => {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const [editMode, setEditMode] = useState(false);
+  const [isLogged, setIsLogged] = useState(false);
+  const [token, setToken] = useState('')
   let myUsername;
 
-  useEffect(async () => {
-		const myToken = localStorage.getItem("token");
-		if (myToken) {
-			myUsername = await myUsernameFetch(myToken);
-			const routines = await myRoutinesFetch(myUsername, myToken);
-			setUserRoutines(routines);
-		}
-	}, []);
+  // useEffect(async () => {
+  //   const myToken = localStorage.getItem("token");
+  //   if (myToken) {
+  //     setIsLogged(true);
+  //     myUsername = await myUsernameFetch(myToken);
+  //     const routines = await myRoutinesFetch(myUsername, myToken);
+  //     setUserRoutines(routines);
+  //   }
+  // }, []);
+
+  useEffect(() => {
+        const myToken = localStorage.getItem('token');
+        setToken(myToken)
+        if (myToken) {
+            const fetchData = async () => {
+
+                let myUsername;
+
+                try {
+                    myUsername = await myUsernameFetch(myToken);
+                    const routines = await myRoutinesFetch(myUsername, myToken);
+                    setUserRoutines(routines);
+
+                } catch (error) {
+                    console.error(error)
+                }
+            };
+
+            fetchData();
+        }
+
+    }, [token]);
 
   // useEffect(() => {
   //   getMyRoutines();
@@ -93,7 +109,7 @@ const MyRoutines = () => {
   const columns = [
     { id: "name", label: "Name", minWidth: 100, maxWidth: 150 },
     { id: "description", label: "Description", minWidth: 100, maxWidth: 500 },
-    { id: "isPublic", label: "Public Post?", minWidth: 100, maxWidth: 150 }
+    { id: "isPublic", label: "Public Post?", minWidth: 100, maxWidth: 150 },
   ];
 
   const handleChangePage = (event, newPage) => {
@@ -106,11 +122,11 @@ const MyRoutines = () => {
     setPage(0);
   };
 
-const onRemoveRoutine = (idx) => {
-  const copy = [...userRoutines];
-  copy.splice(idx, 1);
-  setUserRoutines(copy);
-};
+  const onRemoveRoutine = (idx) => {
+    const copy = [...userRoutines];
+    copy.splice(idx, 1);
+    setUserRoutines(copy);
+  };
 
   return (
     <>
@@ -124,58 +140,69 @@ const onRemoveRoutine = (idx) => {
       >
         <h1>MY ROUTINES</h1>
         <Paper className={classes.root}>
-          <div className="container-class">
-            <TableContainer className={classes.container}>
-              <Table stickyHeader aria-label="sticky table">
-                <TableHead>
-                  <TableRow>
-                    {columns.map((column) => {
-                      return (
-                        <>
-                          <TableCell
-                            key={column.id}
-                            align="left"
-                            style={{
-                              minWidth: column.minWidth,
-                              fontWeight: "bold",
-                              textAlign:"left"
-                            }}
-                          >
-                            {column.label}
-                          </TableCell>
-                      
-                        </>
-                      );
-                    })}
-                    <TableCell />
-                  </TableRow>
-                </TableHead>
-                <TableBody>
-                  {userRoutines
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
-                      return <MyRoutinesRow key={row.name} routine={row} />;
-                    })}
-                </TableBody>
-              </Table>
-            </TableContainer>
-          </div>
-          <TablePagination
-            rowsPerPageOptions={[10, 25, 100]}
-            component="div"
-            count={userRoutines.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
+          {/* {userRoutines.length > 1 ? ( */}
+            <>
+              <div className="container-class">
+                <TableContainer className={classes.container}>
+                  <Table stickyHeader aria-label="sticky table">
+                    <TableHead>
+                      <TableRow>
+                        {columns.map((column) => {
+                          return (
+                            <>
+                              <TableCell
+                                key={column.id}
+                                align="left"
+                                style={{
+                                  minWidth: column.minWidth,
+                                  fontWeight: "bold",
+                                  textAlign: "left",
+                                }}
+                              >
+                                {column.label}
+                              </TableCell>
+                            </>
+                          );
+                        })}
+                        <TableCell />
+                      </TableRow>
+                    </TableHead>
+                    <TableBody>
+                      {userRoutines
+                        .slice(
+                          page * rowsPerPage,
+                          page * rowsPerPage + rowsPerPage
+                        )
+                        .map((row) => {
+                          return <MyRoutinesRow key={row.name} routine={row} />;
+                        })}
+                    </TableBody>
+                  </Table>
+                </TableContainer>
+              </div>
+              <TablePagination
+                rowsPerPageOptions={[10, 25, 100]}
+                component="div"
+                count={userRoutines.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onChangePage={handleChangePage}
+                onChangeRowsPerPage={handleChangeRowsPerPage}
+              />
+            </>
+          
+{/*           
+          // ) : (
+          //   <div style={{display:"flex", flexDirection:"column", alignItems:"center", color:"white", fontWeight:"bold"}}>
+          //     <p>Create Your First Routine!</p>
+          //     <CreateRoutineModal />
+          //   </div>
+          // )} */}
         </Paper>
       </div>
     </>
   );
 };
-
-
 
 // return (
 //   <TableContainer component={Paper}>
@@ -208,6 +235,5 @@ const onRemoveRoutine = (idx) => {
 //   </TableContainer>
 // );
 // };
-
 
 export default MyRoutines;

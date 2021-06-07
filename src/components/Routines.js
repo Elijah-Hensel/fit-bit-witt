@@ -8,6 +8,7 @@ import TableContainer from "@material-ui/core/TableContainer";
 import TableHead from "@material-ui/core/TableHead";
 import TablePagination from "@material-ui/core/TablePagination";
 import TableRow from "@material-ui/core/TableRow";
+import RoutinesRow from "./RoutinesRow"
 
 const useStyles = makeStyles({
   root: {
@@ -49,7 +50,7 @@ const Routines = () => {
     { id: "name", label: "Name", minWidth: 100, maxWidth: 150 },
     { id: "goal", label: "Goal", minWidth: 100, maxWidth: 150 },
     { id: "creatorName", label: "Creator Name", minWidth: 100, maxWidth: 150 },
-    { id: "id", label: "ID", minWidth: 100, maxWidth: 150 },
+    { id: "activities", label: "Activities", minWidth: 100, maxWidth: 150 },
   ];
 
   const handleChangePage = (event, newPage) => {
@@ -97,27 +98,7 @@ const Routines = () => {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((row) => {
                       return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={allRoutines.id}
-                        >
-                          {columns.map((column) => {
-                            const value = row[column.id];
-                            return (
-                              <TableCell
-                                style={{ fontWeight: "bold" }}
-                                key={column.id}
-                                align={column.align}
-                              >
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            );
-                          })}
-                        </TableRow>
+                        <RoutinesRow key={row.name} routine={row}/>
                       );
                     })}
                 </TableBody>

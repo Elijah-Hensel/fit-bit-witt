@@ -44,9 +44,10 @@ const RegisterForm = () => {
     }
   };
 
-  const onFormSubmit = (event) => {
+  const onFormSubmit = async (event) => {
     event.preventDefault();
-    registerUser();
+    await registerUser();
+    window.location = "./home"
   };
 
   return (

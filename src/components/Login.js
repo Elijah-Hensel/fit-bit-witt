@@ -12,7 +12,7 @@ const Login = () => {
           alignItems: "center",
         }}
       >
-        <h1>Login Page</h1>
+        <h1>LOGIN</h1>
         <LoginForm />
       </div>
     </>

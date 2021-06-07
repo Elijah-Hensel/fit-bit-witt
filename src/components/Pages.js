@@ -8,12 +8,12 @@ import {
   LOGIN_ROUTE,
   SIGNUP_ROUTE,
 } from "../constants";
-import Home from "./Home";
 import Login from "./Login";
 import MyRoutines from "./My-Routines";
 import Routines from "./Routines";
 import Signup from "./Signup";
 import Activities from "./Activities";
+import Home from "./Home"
 const Pages = () => {
   return (
     <>

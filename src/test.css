@@ -1,0 +1,243 @@
+@import url("https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap");
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+  background-image: url("./photos/bruce-mars-WGN6ZEFEZbs-unsplash.jpg");
+  background-size: cover;
+}
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
+    monospace;
+}
+
+h1 {
+  color: white;
+  font-family: "Fredoka One";
+  font-size: 40px;
+  letter-spacing: 30px;
+  text-shadow: 2px 3px 11px rgba(0, 0, 0, 0.3)  ; 
+  text-transform: uppercase;
+  
+}
+
+h3 {
+  color: white;
+  text-shadow: 2px 3px 11px rgba(0, 0, 0, 0.3)  ;
+  
+}
+
+span.MuiButton-label {
+    color: white;
+    margin: 5px 0;
+}
+
+form.register-form {
+    background: rgb(176, 55, 67);
+    background: linear-gradient(
+      283deg,
+      rgba(176, 55, 67, .8) 0%,
+      rgba(237, 85, 101, .8) 100%
+    );
+    padding: 0 50px;
+    border-radius: 10px;
+    border: 1px solid white;
+}
+
+.MuiPaper-root {
+    background-color: transparent !important;
+}
+
+.MuiTableContainer-root {
+  background-color: transparent !important;
+  width: 90vw !important;
+  border: 1px solid white;
+  border-radius: 10px !important;
+    
+}
+
+.MuiTableRow-root {
+  background: rgb(176, 55, 67);
+  background: linear-gradient(
+    283deg,
+    rgba(176, 55, 67, .8) 0%,
+    rgba(237, 85, 101, .8) 100%
+  );
+
+}
+
+.MuiMenu-list {
+    background: rgb(176, 55, 67);
+    background: linear-gradient(
+      283deg,
+      rgba(176, 55, 67, 1) 0%,
+      rgba(237, 85, 101, 1) 100%
+    );
+    
+}
+
+.MuiTableCell-head {
+  color: white !important;
+  background-color: maroon !important;
+}
+
+.MuiTablePagination-root {
+  color: white !important;
+  margin-right: 15px;
+}
+
+.MuiIconButton-root {
+  color: white !important;
+}
+
+.MuiTablePagination-selectIcon {
+  color: white !important;
+}
+
+.MuiFormControl-root {
+  background: white;
+}
+
+.MuiPaper-root {
+    background-color:rgba(0, 0, 0, 0.4) !important;
+    padding: 0 20px;
+}
+
+svg.MuiSvgIcon-root:hover {
+    color: white;
+}
+
+.container-class {
+  display: flex;
+  justify-content: center;
+}
+
+.home-main {
+  height: 75vh;
+  width: 100vw;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.home-main p {
+    display: none;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-weight: bold;
+  background: rgb(176, 55, 67);
+  background: linear-gradient(
+    283deg,
+    rgba(176, 55, 67, .8) 0%,
+    rgba(237, 85, 101, .3) 100%
+  );
+  padding: 10px;
+  border-radius: 3px;
+}
+
+.nav {
+    color: rgba(0, 0, 0, 0.87);
+    padding: 6px 16px;
+    font-size: 0.875rem;
+    min-width: 64px;
+    box-sizing: border-box;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: uppercase;
+    background-color: rgba(0, 0, 0, 0.1);
+	box-shadow: 0 26px 45px rgba(0, 0, 0, 0.4)  ; 
+	-webkit-box-shadow: 0 26px 45px rgba(0, 0, 0, 0.4)  ; 
+	-moz-box-shadow: 0 26px 45px rgba(0, 0, 0, 0.4)  ; 
+}
+
+.nav p {
+    font-weight: bold;
+}
+
+b {
+color:rgba(237, 85, 101, 1);
+  font-style: italic;
+  letter-spacing: 4px;
+  font-weight: bolder;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:visited {
+  color: white;
+}
+
+a:hover.log {
+    background-color:rgba(0, 0, 0, 0.04);
+    padding: 10px;
+    border-radius: 3px;
+    margin-right: 5px !important;
+    margin-left: -10px !important;
+    -webkit-transition: background-color 250ms linear;
+    -ms-transition: background-color 250ms linear;
+    transition: background-color 250ms linear;
+
+}
+
+
+.home-main span {
+  position: relative;
+  font-family: "Avenir Next", sans-serif;
+  font-weight: 900;
+  font-size: 100px;
+  color: #f3f2f2;
+  background: rgb(176, 55, 67);
+  background: linear-gradient(
+    283deg,
+    rgba(176, 55, 67, .8) 0%,
+    rgba(237, 85, 101, .8) 100%
+  );
+  border: solid #f3f2f2 2px; 
+	box-shadow: 2px 3px 11px rgba(0, 0, 0, 0.1)  ; 
+	-webkit-box-shadow: 2px 3px 11px rgba(0, 0, 0, 0.1)  ; 
+	-moz-box-shadow: 2px 3px 11px rgba(0, 0, 0, 0.1)  ; 
+  background-size: 100%;
+  text-transform: uppercase;
+  font-style: italic;
+  letter-spacing: 0.05em;
+  display: inline-block;
+  padding: 0 20px;
+}
+
+/* We create a pseudo element and blur it using the SVG filter. We’ll grab the content from the custom HTML attribute. */
+
+/* span:before {
+  position: absolute;
+  left: 0;
+  top: 0;
+  content: attr(filter-content);
+  color: black;
+
+  filter: url(#motion-blur-filter);
+} */
+
+/* We hide the SVG filter element from the DOM as it would take up some space */
+
+/* svg {
+  display: none;
+} */

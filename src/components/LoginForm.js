@@ -17,6 +17,7 @@ const LoginForm = () => {
   const [loggedUser, setLoggedUser] = useState(false);
   const [username, setUser] = useState();
   const [password, setPassword] = useState();
+  
   const loginUser = async () => {
     setLoggedUser(true);
     localStorage.setItem("loggedIn", true);
@@ -36,15 +37,17 @@ const LoginForm = () => {
       );
       const data = await response.json();
       localStorage.setItem("token", data.token);
+      localStorage.setItem("username", username);
       return data;
     } catch (err) {
       throw err;
     }
   };
 
-  const onFormSubmit = (event) => {
+  const onFormSubmit = async (event) => {
     event.preventDefault();
-    loginUser();
+    await loginUser();
+    window.location = "./home"
   };
 
   return (
@@ -85,7 +88,7 @@ const LoginForm = () => {
           }}
         />
         <Button type="submit" style={{ width: "25%" }}>
-          Register
+          LOGIN
         </Button>
       </form>
     </>
