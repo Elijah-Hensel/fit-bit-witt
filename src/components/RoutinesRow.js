@@ -20,30 +20,13 @@ const useStyles = makeStyles({
 });
 
 const RoutinesRow = ({
-  routine: { id, name, goal, creatorName, isPublic, activities }, onRemoveRoutine
+  routine: { id, name, goal, creatorName, isPublic, activities }
 }) => {
   const [routineName, setRoutineName] = useState(name);
   const [routineGoal, setRoutineGoal] = useState(goal);
   const [routineCreator, setRoutineCreator] = useState(creatorName)
   const [allRoutines, setAllRoutines] = useState([])
-  const TOKEN = localStorage.getItem("token");
 
-  const fetchPublicRoutines = async () => {
-    try {
-      const response = await fetch(
-        "http://fitnesstrac-kr.herokuapp.com/api/routines",
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
-      );
-      const data = await response.json();
-      setAllRoutines(data);
-    } catch (err) {
-      throw err;
-    }
-  };
   
 
   return isPublic ? (
@@ -55,7 +38,7 @@ const RoutinesRow = ({
         {goal}
       </TableCell>
       <TableCell style={{}} align="left">
-        {routineCreator}
+        {creatorName}
       </TableCell>
       <TableCell style={{ fontSize: "small" }} align="right">
           <ul>

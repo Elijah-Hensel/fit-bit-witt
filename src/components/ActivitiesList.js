@@ -18,8 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 const ActivitiesList = () => {
   const classes = useStyles();
-  const [allActivities, setAllActivities] = useState([]);
-  const [activity, setActivity] = useState("");
+  const [activitiesList, setActivitiesList] = useState([]);
+  const [anActivity, setAnActivity] = useState('')
 
   const fetchAllActivities = async () => {
     try {
@@ -32,34 +32,54 @@ const ActivitiesList = () => {
         }
       );
       const data = await response.json();
-      setAllActivities(data)
+      return data
     } catch (err) {
       throw err;
     }
   };
 
+    useEffect(() => {
+        fetchAllActivities()
+            .then((activitiesList) => {
+                setActivitiesList(activitiesList);
+                console.log(activitiesList);
+            })
+            .catch((error) => {
+                console.error(error);
+            });
+    }, [setActivitiesList]);
+
+
 
 
   const handleChange = (event) => {
-    setActivity(event.target.value);
+    setAnActivity(event.target.value);
   };
 
   return (
-    <div>
-      <FormControl className={classes.formControl}>
-        <InputLabel id="demo-simple-select-label">Activity</InputLabel>
-        <Select
-          labelId="demo-simple-select-label"
-          id="demo-simple-select"
-          value={activity}
-          onChange={handleChange}
-        >
-          {allActivities.map((activity) => {
-                return <MenuItem value={activity.id}>{activity}</MenuItem>;
-              })}
-        </Select>
-      </FormControl>
-    </div>
+    <fieldset>
+                    <label htmlFor="select-century">
+                        Activity{" "}
+                    </label>
+                    <select
+                        name="century"
+                        id="select-century"
+                        value={anActivity}
+                        onChange={(event) => {
+                            setAnActivity(event.target.value);
+                        }}
+                    >
+                        <option value="Any">Any</option>
+                        {activitiesList.map((activity) => (
+                            <option
+                                key={`${activity.id}+${activity.name}`}
+                                value={activity.name}
+                            >
+                                {activity.name}
+                            </option>
+                        ))}
+                    </select>
+                </fieldset>
   );
 };
 

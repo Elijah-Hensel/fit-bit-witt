@@ -9,7 +9,7 @@ import {
   EditOutlined as EditIcon,
 } from "@material-ui/icons";
 import getMyRoutines from "../functions/getMyRoutines";
-
+import ActivitiesList from "./ActivitiesList";
 const useStyles = makeStyles({
   root: {
     width: "100%",
@@ -126,6 +126,9 @@ const MyRoutinesRow = ({
           onRemoveRoutine(0)
             onDelete(id);
         }} />}
+              <TableCell style={{}} align="left">
+        {editMode ? <ActivitiesList /> : null}
+      </TableCell>
       </TableCell>
     </TableRow>
   );
