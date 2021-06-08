@@ -41,7 +41,7 @@ const MyRoutinesRow = ({
     setEditMode(false);
     try {
       const response = await fetch(
-        `http://fitnesstrac-kr.herokuapp.com/api/routines/${id}`,
+        `https://fitnesstrac-kr.herokuapp.com/api/routines/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -66,7 +66,7 @@ const MyRoutinesRow = ({
 
   const onDelete = async (id) => {
     try {
-        const response = await fetch(`http://fitnesstrac-kr.herokuapp.com/api/routines/${id}`,
+        const response = await fetch(`https://fitnesstrac-kr.herokuapp.com/api/routines/${id}`,
         {
             method: "DELETE",
             headers: {

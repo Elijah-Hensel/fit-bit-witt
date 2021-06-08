@@ -2,7 +2,7 @@ const createRoutine = async () => {
   const TOKEN = localStorage.getItem("token")
   try {
     const response = await fetch(
-      "http://fitnesstrac-kr.herokuapp.com/api/routines",
+      "https://fitnesstrac-kr.herokuapp.com/api/routines",
       {
         method: "POST",
         headers: {

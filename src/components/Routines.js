@@ -29,7 +29,7 @@ const Routines = () => {
   const fetchPublicRoutines = async () => {
     try {
       const response = await fetch(
-        "http://fitnesstrac-kr.herokuapp.com/api/routines",
+        "https://fitnesstrac-kr.herokuapp.com/api/routines",
         {
           headers: {
             "Content-Type": "application/json",

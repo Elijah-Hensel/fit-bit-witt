@@ -25,7 +25,7 @@ const useStyles = makeStyles({
 const myUsernameFetch = async (myToken) => {
   try {
     return axios
-      .get(`http://fitnesstrac-kr.herokuapp.com/api/users/me`, {
+      .get(`https://fitnesstrac-kr.herokuapp.com/api/users/me`, {
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${myToken}`,
@@ -43,7 +43,7 @@ const myRoutinesFetch = async (username, myToken) => {
   try {
     return axios
       .get(
-        `http://fitnesstrac-kr.herokuapp.com/api/users/${username}/routines`,
+        `https://fitnesstrac-kr.herokuapp.com/api/users/${username}/routines`,
         {
           headers: {
             "Content-Type": "application/json",

@@ -1,7 +1,7 @@
 const getActivities = async () => {
     try {
       const response = await fetch(
-        "http://fitnesstrac-kr.herokuapp.com/api/activities",
+        "https://fitnesstrac-kr.herokuapp.com/api/activities",
         {
           headers: {
             "Content-Type": "application/json",

@@ -23,7 +23,7 @@ const RegisterForm = () => {
     localStorage.setItem("loggedIn", true);
     try {
       const response = await fetch(
-        "http://fitnesstrac-kr.herokuapp.com/api/users/register",
+        "https://fitnesstrac-kr.herokuapp.com/api/users/register",
         {
           method: "POST",
           headers: {
